@@ -1,21 +1,21 @@
 import pyautogui, random, time
 
 # Images
-ZERO = "0.png"
-ONE = "1.png"
-TWO = "2.png"
-THREE = "3.png"
-FOUR = "4.png"
-FIVE = "5.png"
-SIX = "6.png"
-SEVEN = "7.png"
-EIGHT = "8.png"
-NINE = "9.png"
-DIVIDE = "divide.png"
-EQUALS = "equals.png"
-MINUS = "minus.png"
-PLUS = "plus.png"
-TIMES = "times.png"
+ZERO = "Images/0.png"
+ONE = "Images/1.png"
+TWO = "Images/2.png"
+THREE = "Images/3.png"
+FOUR = "Images/4.png"
+FIVE = "Images/5.png"
+SIX = "Images/6.png"
+SEVEN = "Images/7.png"
+EIGHT = "Images/8.png"
+NINE = "Images/9.png"
+DIVIDE = "Images/divide.png"
+EQUALS = "Images/equals.png"
+MINUS = "Images/minus.png"
+PLUS = "Images/plus.png"
+TIMES = "Images/times.png"
 
 
 def within(area):
@@ -36,19 +36,55 @@ def moveToButton(button):
 	if loc != None:
 		spot = within(loc)
 		pyautogui.moveTo(spot, duration = 0.25)
+		pyautogui.click()
+		time.sleep(1)
 	else:
 		raise Exception("Cannot find the calculator.")
 
+def userInput():
+	command = input("Please enter your command: ")
+	return command
+
+def doThings(userInput):
+	if type(userInput) == str:
+		for character in userInput:
+			if character == "0":
+				moveToButton(ZERO)
+			elif character == "1":
+				moveToButton(ONE)
+			elif character == "2":
+				moveToButton(TWO)
+			elif character == "3":
+				moveToButton(THREE)
+			elif character == "4":
+				moveToButton(FOUR)
+			elif character == "5":
+				moveToButton(FIVE)
+			elif character == "6":
+				moveToButton(SIX)
+			elif character == "7":
+				moveToButton(SEVEN)
+			elif character == "8":
+				moveToButton(EIGHT)
+			elif character == "9":
+				moveToButton(NINE)
+			elif character == "/":
+				moveToButton(DIVIDE)
+			elif character == "*":
+				moveToButton(TIMES)
+			elif character == "+":
+				moveToButton(PLUS)
+			elif character == "-":
+				moveToButton(MINUS)
+		moveToButton(EQUALS)
+
+	else:
+		raise Exception("That's not a string. ")
 
 def main():
 	# Main program function
-
-	# For right now, this area is for debugging purposes
-	# For example, right now the program will move to 5, wait 2 seconds, then move to 4.
-
-	moveToButton(FIVE)
-	time.sleep(2)
-	moveToButton(FOUR)
+	commandString = userInput()
+	doThings(commandString)
 
 # Call main function
 if __name__ == '__main__':
